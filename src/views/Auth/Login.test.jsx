@@ -1,13 +1,8 @@
-import {
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-} from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter, Route, Switch } from 'react-router-dom';
 import { ProvideAuth } from '../../context/ProvideAuth';
 import Login from './Login';
-import Treehouse from '../Treehouse/Treehouse'
+import Treehouse from '../Treehouse/Treehouse';
 
 jest.mock('../../hooks/useAuth', () => {
   return {
@@ -24,7 +19,7 @@ jest.mock('../../hooks/useAuth', () => {
 it('should allow the user to log in', async () => {
   const { container } = render(
     <ProvideAuth>
-      <MemoryRouter initialEntries={["/login"]}>
+      <MemoryRouter initialEntries={['/login']}>
         <Switch>
           <Route exact path="/login">
             <Login />
@@ -39,17 +34,17 @@ it('should allow the user to log in', async () => {
 
   expect(container).toMatchSnapshot();
 
-  const emailField = screen.getByLabelText('Email');
-  const passwordField = screen.getByLabelText('Password');
+  const emailField = screen.getByLabelText(/email/i);
+  const passwordField = screen.getByLabelText(/password/i);
   const submitBtn = screen.getByRole('button', { name: 'Sign In' });
-  
+
   fireEvent.change(emailField, {
     target: { value: 'test@example.com' },
   });
   fireEvent.change(passwordField, {
     target: { value: 'secret' },
   });
-  
+
   expect(passwordField).toHaveValue('secret');
   expect(emailField).toHaveValue('test@example.com');
 
