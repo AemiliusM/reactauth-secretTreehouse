@@ -34,8 +34,8 @@ it('should allow the user to log in', async () => {
 
   expect(container).toMatchSnapshot();
 
-  const emailField = screen.getByLabelText('Email');
-  const passwordField = screen.getByLabelText('Password');
+  const emailField = screen.getByLabelText(/email/i);
+  const passwordField = screen.getByLabelText(/password/i);
   const submitBtn = screen.getByRole('button', { name: 'Sign In' });
 
   fireEvent.change(emailField, {

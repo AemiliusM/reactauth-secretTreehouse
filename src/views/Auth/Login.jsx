@@ -20,7 +20,7 @@ export default function Login() {
     const loginWasSuccessful = auth.login(formState.email, formState.password);
 
     if (loginWasSuccessful) {
-      history.replace('/treehouse');
+      history.replace(from.pathname);
     } else {
       setError('incorrect email or password');
     }
@@ -37,14 +37,23 @@ export default function Login() {
   return (
     <>
       <h3>You must log in to view the page at {from.pathname}</h3>
-      <form
-        onSubmit={handleLogin}
-        className={styles.loginForm}
-        onChange={handleFormChange}
-      >
-        <label>Email</label>
-        <input id="email" name="email" type="email" /> <label>Password</label>
-        <input id="password" name="password" type="password" />
+      <form onSubmit={handleLogin} className={styles.loginForm}>
+        <label htmlFor="email">Email</label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          value={formState.email}
+          onChange={handleFormChange}
+        />{' '}
+        <label htmlFor="password">Password</label>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          value={formState.password}
+          onChange={handleFormChange}
+        />
         <button type="submit" aria-label="Sign In">
           Sign in
         </button>
